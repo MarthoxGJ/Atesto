@@ -1,0 +1,62 @@
+\section{State of the Art}
+
+At the core of the Trust over IP framework lies a dual stack of digital trust technologies. The foundational layer concerns itself with verifiable digital identity, leveraging decentralized identifiers (DIDs) and verifiable credentials (VCs) as the bedrock of trustworthiness. Layered on top of this foundation is the governance layer, providing the necessary rules, regulations, and conventions that dictate how DIDs and VCs should be used, authenticated, and managed. It presents a trust triangle paradigm, comprising of Issuers, Verifiers, and Holders.
+
+For the application of these concepts, it is important to recognize the tools that are at our disposal to use, although at the time of writing this document these concepts are relatively new, there are organizations and people really interested in in giving back to people the control over their digital identities and make fair and transparent the way how we trust each other in the internet. A multitude of Trust over IP implementations have surfaced across various sectors, demonstrating the framework's flexibility and wide-ranging applicability. Industries like healthcare, finance, and education are leveraging ToIP to ensure secure identity verification and data protection. The versatility of the ToIP architecture, combined with the robustness of the verifiable credentials mechanism, makes it a promising solution to address the escalating issues of identity theft, fraud, and data breaches.
+
+As Trust over IP continues to evolve, it is poised to profoundly influence how digital trust is perceived and managed. The promise of increased privacy, security, and control over personal data is potentially transformative. However, the ToIP framework is not without its challenges. Interoperability, scaling, public awareness, and regulatory acceptance are among the obstacles that must be overcome for Trust over IP to realize its full potential. Trust over IP represents an ambitious effort to redefine digital trust at the scale of the internet. As an emerging technology, it is rapidly evolving and presents enormous potential to revolutionize multiple sectors.
+
+Verifiable credentials, are an integral component of the decentralized identity architecture, present a paradigm shift in how identity information is handled, offering unparalleled autonomy, privacy, and security. The Hyperledger Aries, as a decentralized identity framework, serves as an essential vehicle in actualizing these potentials. This infrastructure provides a unified set of tools and libraries for creating, transmitting, storing, and verifying credentials across diverse use-cases. As of today, Aries has been instrumental in establishing standards and interoperability, mitigating fragmentation in the digital identity domain
+
+Verifiable credentials are cryptographically created credentials that have four basic pieces of information inside, who issued the credential, to whom the credential was issued, whether the credential was tampered with, and if the credential was revoked. Also, in the scenes where VCs are useful should be a core set of actors each with a specific role in the model. The W3C presents the following actors. (W3C, 2022)
+
+\begin{itemize}
+    \item Holder: A role an entity might perform by possessing one or more verifiable credentials and generating verifiable presentations from them. Example holders include students, employees, and customers.
+    \item Issuer: A role an entity performs by asserting claims about one or more subjects, creating a verifiable credential from these claims, and transmitting the verifiable credential to a holder. Example issuers include corporations, non-profit organizations, trade associations, governments, and individuals.
+    \item subject: An entity about which claims are made. Example subjects include human beings, animals, and things. In many cases the holder of a verifiable credential is the subject, but in certain cases it is not. For example, a parent (the holder) might hold the verifiable credentials of a child (the subject), or a pet owner (the holder) might hold the verifiable credentials of their pet (the subject). For more information about these special cases, see Appendix C. Subject-Holder Relationships.
+    \item Verifier: A role an entity performs by receiving one or more verifiable credentials, optionally inside a verifiable presentation, for processing. Example verifiers include employers, security personnel, and websites.
+    \item Verifiable data registry: A role a system might perform by mediating the creation and verification of identifiers, keys, and other relevant data, such as verifiable credential schemas, revocation registries, issuer public keys, and so on, which might be required to use verifiable credentials. Some configurations might require correlatable identifiers for subjects. Example verifiable data registries include trusted databases, decentralized databases, government ID databases, and distributed ledgers. Often there is more than one type of verifiable data registry utilized in an ecosystem
+\end{itemize}
+
+These actors interact with each other as shown in figure 1, the issuer issues the credentials to the holder then the holder can send the presentation to the verifier, all of them relying on the verifiable data registry, not in each other directly but in the verifiable data registry which allows them to trust each other. As the holder can register their credentials in the VDR confirming that the issuer verifies the identifiers, them the verifier can prove that the holder VC was issued by who they say were issued by verifying the identifiers in the VDR and can check to whom it was registered to by the same process, reviewing the identifiers registered by the holder
+
+Another important concept in the scope of this work is the Trust over IP (ToIP) framework which emerges as an innovative approach to digital trust, aiming to establish trust at internet scale. Drawing from the lessons of the past and anticipating the needs of the future, ToIP redefines how trust is conveyed, authenticated, and managed online. This section delves into the state of the art of the Trust over IP, examining its underlying principles, architecture, use-cases, and potential for the future.
+
+An aspect in the implementation of verifiable credentials in the Hyperledger Aries stack relies on AnonCreds which have something called selective disclosure, that allows the holder of the credential to only share a selection of the claims issued in a verifiable credential, and along with zero knowledge proof. AnonCreds in the Aries tech stack allows it to (Hyperledger Foundation, 2022):
+
+\begin{itemize}
+    \item Avoidance of identifiers: No correlatable identifiers are required in presenting data to a verifier. Correlatable identifiers may be applied in a use case specific manner.
+    \item Verifier assurances: Credentials are bound to the holder, so verifiers know that credentials presented together were all issued to the holder providing the presentation.
+    \item Minimal data sharing: Data to be shared by a holder to a verifier is minimized using selective disclosure and ZKP predicates.
+\end{itemize}
+
+AnonCreds is a ledger-agnostic client-agnostic verifiable credential model with a formal open specification which allows it to be adopted by everyone needing a verifiable credential model. As it implements the whole layer 3 verifiable credential in the “Trust Triangle” of the ToIP model, which we are going to discuss later. Figure 2 shows how the Hyperledger technologies connect with each other.
+
+Another element in the stack is the Ursa cryptographic library also part of the Linux Foundation projects but as the date of this document it was set to an “end of life” state this does not mean that it cannot be used, but is not actively maintained anymore, this library is still being used as part of the cryptographic core of the Aries architecture allowing the generation of asymmetric keys and ZKP validations.
+
+Other piece of technology we are going to talk about in this chapter is Indy another Linux Foundation project, in this case Indy provides tools, libraries, and reusable components for providing digital identities rooted on blockchains or other distributed ledgers, Indy was the original project from the Linux Foundation to achieve digital identities until they started to modularize items from it, for example the Indy agents were replaced by the Aries agents creating the Hyperledger Aries which is blockchain-agnostic and removing the agent implementation from Indy and putting in into this new modular project, Aries. Indy have the following key characteristics (Hyperledger Foundation, 2022):
+
+\begin{enumerate}
+    \item Distributed ledger purpose-built for decentralized identity
+    \item Correlation-resistant by design
+    \item DIDs (Decentralized Identifiers) that are globally unique and resolvable (via a ledger) without requiring any centralized resolution authority
+    \item Pairwise Identifiers create secure, 1:1 relationships between any two entities
+    \item Verifiable Credentials in an interoperable format for exchange of digital identity attributes and relationships, currently in the standardization pipeline at the W3C.
+    \item Zero Knowledge Proofs which prove that some or all of the data in a set of Claims is true without revealing any additional information, including the identity of the Prover
+\end{enumerate}
+
+The last project of the Linux Foundation in this tech stack is Aries, it “is infrastructure for blockchain-rooted, peer-to-peer interactions. It includes a shared cryptographic storage for blockchain clients as well 
+as a communications protocol for allowing off-ledger interactions between those clients” (Hyperledger 
+Foundation, 2022)
+
+Aries is the one who holds the rest of the elements together, it is like the structure where the other blocks are attached to it. “Aries provides a shared, reusable, interoperable tool kit designed for initiatives and solutions focused on creating, transmitting, and storing verifiable digital credentials. It is infrastructure for blockchain-rooted, peer-to-peer interactions. This project consumes the cryptographic support provided by Hyperledger Ursa, to provide secure secret management and decentralized key management functionality.” (Hyperledger Foundation, 2022). Some key characteristics of Aries are:
+
+\begin{enumerate}
+    \item A blockchain interface layer (known as a resolver) for creating, signing, and reading blockchain transactions.
+    \item A cryptographic storage element that can be used for secure storage of cryptographic secrets, verifiable credentials, and other information used to build clients for exchanging (issuing, proving) verifiable credentials.
+    \item An encrypted, peer-to-peer messaging system (called DIDComm) based on Decentralized Identifiers (DIDs) supporting off-ledger interaction between those clients using multiple transport protocols.
+    \item Support for exchanging (issuing and proving) verifiable credentials in multiple formats, including an implementation of ZKP-capable verifiable credentials using the ZKP primitives found in Ursa.
+    \item A series of higher-level protocols and a subset of those protocols versioned "Aries Interop Profiles" to enable the independent implementation and deployment of interoperable Aries agents.
+    \item A set of production-ready (and several proof of concept) Aries framework implementations enabling different use cases and deployments. The frameworks are dependency in use case specific implementations of Aries agents, such as a mobile wallet, an enterprise verifiable credential issuer/verifier, etc.
+    \item An agent test harness to enable continuous interoperability testing of agents and agent frameworks.
+\end{enumerate}

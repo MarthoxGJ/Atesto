@@ -1,11 +1,26 @@
 \documentclass[11pt]{article}
 
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+\usepackage[
+    backend=biber,
+    style=numeric-verb,
+    sorting=ynt
+]{biblatex}
+
+\addbibresource{Assets/Bibliography.bib}
+
 \begin{document}
+    
+    \include{Chapters/FrontPage}
 
-\include{Chapters/FrontPage}
+    \tableofcontents
 
-\include{Chapters/Introduction}
+    \include{Chapters/Introduction/Introduction}
+    \include{Chapters/StateOfTheArt/StateOfTheArt}
+    \include{Chapters/Methodology/Methodology}
+    \include{Chapters/ExpectedResults/ExpectedResults}
 
-\include{Chapters/ProblemStatement}
-\include{Chapters/Objectives}
+    \printbibliography
+
 \end{document}
